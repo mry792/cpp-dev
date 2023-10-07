@@ -1,0 +1,8 @@
+# This project is intended to host other git repos as sub-directories but
+# these files should never be tracked by this git repository. Ignore all
+# sub-directories.
+*/*
+
+# Editor local files.
+*.sublime-workspace
+*.swp
