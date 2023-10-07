@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOCKER_USER: ${DOCKER_USER}
+        DOCKER_UID: ${DOCKER_UID}
+        DOCKER_GID: ${DOCKER_GID}
+    container_name: cpp-dev
+    user: ${DOCKER_UID}:${DOCKER_GID}
+    working_dir: ${HOME}/src
+    stdin_open: true
+    tty: true
+    entrypoint: /bin/bash
+
+    environment:
+      CONTAINER_NAME: cpp-dev
+      DOCKER_UID: ${DOCKER_UID}
+      DOCKER_GID: ${DOCKER_GID}
+
+    volumes:
+      - .:${HOME}/src
+      - ${HOME}/.ssh:${HOME}/.ssh
