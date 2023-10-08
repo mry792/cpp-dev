@@ -11,7 +11,7 @@ services:
         DOCKER_USER: ${DOCKER_USER}
         DOCKER_UID: ${DOCKER_UID}
         DOCKER_GID: ${DOCKER_GID}
-    container_name: cpp-dev
+    container_name: ${CONTAINER_NAME}
     user: ${DOCKER_UID}:${DOCKER_GID}
     working_dir: ${HOME}/src
     stdin_open: true
@@ -20,7 +20,7 @@ services:
 
     environment:
       HOST_HOSTNAME: ${HOSTNAME}
-      CONTAINER_NAME: cpp-dev
+      CONTAINER_NAME: ${CONTAINER_NAME}
       DOCKER_UID: ${DOCKER_UID}
       DOCKER_GID: ${DOCKER_GID}
 
