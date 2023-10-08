@@ -1,13 +1,18 @@
-from gcc:13.2.0
+ARG GCC_VER
+ARG CONAN_VER
+
+from gcc:${GCC_VER}
 
 RUN apt update && \
     apt install --yes --no-install-recommends \
         cmake \
         curl \
         grep \
+        less \
         lsb-release \
         pipx \
         sudo \
+        tree \
         vim \
       && \
     rm --recursive --force /var/lib/apt/lists/*
@@ -32,8 +37,9 @@ COPY bash_profile /home/${DOCKER_USER}/.bash_profile
 COPY gitconfig /home/${DOCKER_USER}/.gitconfig
 
 # Setup Conan.
+ARG CONAN_VER
 ARG CONAN_EXE=/home/${DOCKER_USER}/.local/bin/conan
-RUN pipx install conan==1.58 && \
+RUN pipx install conan==${CONAN_VER} && \
     rm --recursive --force /home/${DOCKER_USER}/.cache
 RUN ${CONAN_EXE} config init && \
     ${CONAN_EXE} config set general.revisions_enabled=1 && \

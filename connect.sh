@@ -4,4 +4,6 @@ set -o nounset
 set -o errexit
 set -o pipefail
 
-docker exec -it cpp-dev bash --login
+source .env
+
+docker exec -it ${CONTAINER_NAME} bash --login

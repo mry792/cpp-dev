@@ -56,13 +56,40 @@ function resolve_ascii_color () {
 
 USER_COLOR=$(resolve_ascii_color ${PROMPT_USER_COLOR:-red})
 HOST_COLOR=$(resolve_ascii_color ${PROMPT_HOST_COLOR:-bold-white})
+CONT_COLOR=$(resolve_ascii_color ${PROMPT_CONT_COLOR:-bold-cyan})
 PATH_COLOR=$(resolve_ascii_color ${PROMPT_PATH_COLOR:-bold-blue})
 TAIL_COLOR=$(resolve_ascii_color ${PROMPT_TAIL_COLOR:-bold-white})
 RESET_COLOR='\[\e[0m\]'
 
-PS1="[${USER_COLOR}\u${RESET_COLOR}@${HOST_COLOR}\h${RESET_COLOR} ${PATH_COLOR}\w${RESET_COLOR}]${TAIL_COLOR}$ ${RESET_COLOR}"
+P_USER="${USER_COLOR}\u${RESET_COLOR}"
+P_HOST="${HOST_COLOR}\h${RESET_COLOR}"
+P_PATH="${PATH_COLOR}\w${RESET_COLOR}"
+P_TAIL="${TAIL_COLOR}\$ ${RESET_COLOR}"
+
+if [[ $(grep :/docker /proc/self/cgroup | wc -l) == "0" ]]
+then
+    INSIDE_CONTAINER="false"
+else
+    INSIDE_CONTAINER="true"
+    if [ -z "${HOST_HOSTNAME:-}" ]
+    then
+        HOST_HOSTNAME="(host)"
+    fi
+    P_HOST="${HOST_COLOR}${HOST_HOSTNAME}${RESET_COLOR}"
+
+    if [ -z "${CONTAINER_NAME}" ]
+    then
+        CONTAINER_NAME="\h"
+    fi
+    P_CONT="${CONT_COLOR}${CONTAINER_NAME}${RESET_COLOR}"
+
+    P_HOST="${P_HOST}/${P_CONT}"
+fi
+
+PS1="[${P_USER}@${P_HOST} ${P_PATH}]${P_TAIL}"
 
 unset USER_COLOR HOST_COLOR PATH_COLOR TAIL_COLOR RESET_COLOR
+unset P_USER P_HOST P_CONT P_PATH P_TAIL
 
 
 ###
