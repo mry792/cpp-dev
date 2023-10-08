@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
+        GCC_VER: ${GCC_VER}
+        CONAN_VER: ${CONAN_VER}
         DOCKER_USER: ${DOCKER_USER}
         DOCKER_UID: ${DOCKER_UID}
         DOCKER_GID: ${DOCKER_GID}
