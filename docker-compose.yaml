@@ -1,10 +1,20 @@
 version: "3"
 
 services:
+  ci-build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ci-build
+      args:
+        GCC_VER: ${GCC_VER}
+        CONAN_VER: ${CONAN_VER}
+
   dev:
     build:
       context: .
       dockerfile: Dockerfile
+      target: develop
       args:
         GCC_VER: ${GCC_VER}
         CONAN_VER: ${CONAN_VER}
