@@ -5,9 +5,11 @@ RUN apt update && \
         cmake \
         curl \
         grep \
+        less \
         lsb-release \
         pipx \
         sudo \
+        tree \
         vim \
       && \
     rm --recursive --force /var/lib/apt/lists/*
