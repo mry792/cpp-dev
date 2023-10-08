@@ -19,6 +19,7 @@ services:
     entrypoint: /bin/bash
 
     environment:
+      HOST_HOSTNAME: ${HOSTNAME}
       CONTAINER_NAME: cpp-dev
       DOCKER_UID: ${DOCKER_UID}
       DOCKER_GID: ${DOCKER_GID}

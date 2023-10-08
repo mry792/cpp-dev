@@ -71,11 +71,11 @@ then
     INSIDE_CONTAINER="false"
 else
     INSIDE_CONTAINER="true"
-    if [ -z "${HOSTNAME:-}" ]
+    if [ -z "${HOST_HOSTNAME:-}" ]
     then
-        HOSTNAME="(host)"
+        HOST_HOSTNAME="(host)"
     fi
-    P_HOST="${HOST_COLOR}${HOSTNAME}${RESET_COLOR}"
+    P_HOST="${HOST_COLOR}${HOST_HOSTNAME}${RESET_COLOR}"
 
     if [ -z "${CONTAINER_NAME}" ]
     then
