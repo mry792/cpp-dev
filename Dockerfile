@@ -33,11 +33,8 @@ ARG CONAN_EXE=/root/.local/bin/conan
 RUN pipx install conan==${CONAN_VER} && \
     pipx ensurepath && \
     rm --recursive --force /root/.cache
-RUN ${CONAN_EXE} config init && \
-    ${CONAN_EXE} config set general.revisions_enabled=1 && \
-    ${CONAN_EXE} profile update settings.compiler.libcxx=libstdc++11 default && \
-    ${CONAN_EXE} profile update settings.compiler.cppstd=20 default && \
-    echo "core:default_build_profile = default" >> /root/.conan/global.conf
+RUN ${CONAN_EXE} config install https://github.com/mry792/conan-config.git
+
 
 ###
 # STAGE: develop
@@ -72,7 +69,7 @@ RUN pipx install conan==${CONAN_VER} && \
 COPY \
     --from=ci-build \
     --chown=${DOCKER_UID}:${DOCKER_GID} \
-    /root/.conan \
-    /home/${DOCKER_USER}/.conan
+    /root/.conan2 \
+    /home/${DOCKER_USER}/.conan2
 
 CMD ["bash"]
