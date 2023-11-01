@@ -1,5 +1,6 @@
 ARG GCC_VER
 ARG CONAN_VER
+ARG BROKKR_VER
 
 ###
 # STAGE: base
@@ -29,11 +30,18 @@ FROM base AS ci-build
 
 # Setup Conan.
 ARG CONAN_VER
+ARG BROKKR_VER
 ARG CONAN_EXE=/root/.local/bin/conan
 RUN pipx install conan==${CONAN_VER} && \
     pipx ensurepath && \
     rm --recursive --force /root/.cache
 RUN ${CONAN_EXE} config install https://github.com/mry792/conan-config.git
+RUN wget \
+        https://github.com/mry792/brokkr/archive/refs/tags/v${BROKKR_VER}.tar.gz \
+        --output-document - | \
+        tar -xzf - && \
+    ${CONAN_EXE} create brokkr-${BROKKR_VER} --version ${BROKKR_VER} --user egoss --channel stable && \
+    ${CONAN_EXE} cache clean -vdebug --source --build --download --temp "brokkr/${BROKKR_VER}@egoss/stable"
 
 
 ###

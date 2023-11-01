@@ -9,6 +9,7 @@ services:
       args:
         GCC_VER: ${GCC_VER}
         CONAN_VER: ${CONAN_VER}
+        BROKKR_VER: ${BROKKR_VER}
     container_name: cpp-build
 
   dev:
@@ -19,6 +20,7 @@ services:
       args:
         GCC_VER: ${GCC_VER}
         CONAN_VER: ${CONAN_VER}
+        BROKKR_VER: ${BROKKR_VER}
         DOCKER_USER: ${DOCKER_USER}
         DOCKER_UID: ${DOCKER_UID}
         DOCKER_GID: ${DOCKER_GID}
