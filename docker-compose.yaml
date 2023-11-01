@@ -9,6 +9,7 @@ services:
       args:
         GCC_VER: ${GCC_VER}
         CONAN_VER: ${CONAN_VER}
+    container_name: cpp-build
 
   dev:
     build:
